@@ -9,6 +9,6 @@ open in vscode, invoke 'rebuild and reopen in container'
 ## deploy
 
 ```
-docker build -t image:tag -f deploy/Dockerfile .
+docker build -t image:tag .
 docker run -p xxx:80 image:tag
 ```
