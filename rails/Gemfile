@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'nokogiri'
+gem 'rails', "~> 7.2.0"
