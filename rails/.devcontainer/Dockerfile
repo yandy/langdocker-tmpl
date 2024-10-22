@@ -8,3 +8,7 @@ RUN set -eux; \
     apk add --no-cache curl git g++ gcc make
 
 COPY --chmod=755 devinit /devinit
+
+RUN set -eux; \
+    apk add --no-cache openssh-client-default
+
