@@ -1,7 +1,7 @@
 # build stage
 FROM maven:3-eclipse-temurin-21-alpine AS build
 
-COPY docker/settings.xml /root/.m2/settings.xml
+COPY .m2/settings.xml /root/.m2/settings.xml
 
 COPY . /app
 
