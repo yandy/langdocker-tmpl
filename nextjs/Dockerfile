@@ -1,22 +1,24 @@
 FROM node:20-alpine as base
 
-# build stage
-FROM base as builder
-
 RUN set -eux; \
     sed -i "s@dl-cdn.alpinelinux.org@mirrors.aliyun.com@g" /etc/apk/repositories; \
     apk add --no-cache curl git g++ gcc make
+
+
+# build stage
+FROM base as builder
 
 COPY . /app
 
 WORKDIR /app
 
 RUN --mount=type=cache,target=/app/node_modules set -eux; \
-    npm config set registry https://registry.npmmirror.com; \
+    ./docker/config-deploy; \
     npm install; npm run build
 
-# statc serve stage
-FROM base AS runner
+
+# deploy stage
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/public ./public
