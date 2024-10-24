@@ -1,3 +1,4 @@
 #!/bin/sh
 
+set -eux
 npm config set registry https://registry.npmmirror.com
