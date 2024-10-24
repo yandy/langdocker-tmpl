@@ -1,8 +1,0 @@
-#!/bin/sh
-
-set -eux; \
-gem sources --remove https://rubygems.org/ ; \
-gem sources -a https://mirrors.aliyun.com/rubygems/ ; \
-bundle config set mirror.http://rubygems.org https://mirrors.aliyun.com/rubygems/ ; \
-bundle config set path .bundle ; \
-bundle install

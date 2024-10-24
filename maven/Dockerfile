@@ -1,13 +1,23 @@
-# build stage
-FROM maven:3-eclipse-temurin-21-alpine AS build
+FROM maven:3-eclipse-temurin-21-alpine AS base
 
-COPY .m2/settings.xml /root/.m2/settings.xml
+RUN set -eux; \
+    sed -i "s@dl-cdn.alpinelinux.org@mirrors.aliyun.com@g" /etc/apk/repositories; \
+    apk add --no-cache curl git g++ gcc make
+
+
+# build stage
+FROM base AS build
+
+COPY docker/settings.xml /root/.m2/settings.xml
 
 COPY . /app
 
 WORKDIR /app
 
-RUN --mount=type=cache,target=/root/.m2/repository set -eux; mvn package -Dmaven.test.skip=true
+RUN --mount=type=cache,target=/usr/share/maven/ref/repository set -eux; \
+    sed -i "s@{{local_repo_path}}@/usr/share/maven/ref/repository@g" /root/.m2/settings.xml; \
+    mvn package -Dmaven.test.skip=true
+
 
 # package stage
 FROM eclipse-temurin:21-jre-alpine

@@ -15,7 +15,7 @@
     // "forwardPorts": [],
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": ["/devinit"],
+    "postCreateCommand": ["${containerWorkspaceFolder}/docker/config-dev", "${containerWorkspaceFolder}/.m2repo"],
 
     // Configure tool-specific properties.
     "customizations": {
@@ -24,7 +24,12 @@
 			// Set *default* container specific settings.json values on container create.
 			"settings": {},
 			"extensions": [
-                "vscjava.vscode-java-pack"
+                "redhat.java",
+                "vscjava.vscode-java-debug",
+                "vscjava.vscode-java-test",
+                "vscjava.vscode-maven",
+                "vscjava.vscode-java-dependency",
+                "VisualStudioExptTeam.vscodeintellicode"
             ]
 		}
     },
