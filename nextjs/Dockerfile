@@ -11,7 +11,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN set -eux; \
+RUN --mount=type=cache,target=/app/node_modules set -eux; \
     npm config set registry https://registry.npmmirror.com; \
     npm install; npm run build
 
